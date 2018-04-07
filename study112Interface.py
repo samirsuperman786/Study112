@@ -1,8 +1,11 @@
 # Updated Animation Starter Code
 
 from tkinter import *
+from rapidFireQuiz import *
+from quizReader import *
 
 class Button(object):
+    
     def __init__(self, left, right, top, bottom, text, connection):
         self.left = left
         self.right = right
@@ -10,16 +13,18 @@ class Button(object):
         self.bottom = bottom
         self.text = text
         self.connection = connection
+        
     def draw(self, canvas, data):
         canvas.create_rectangle(self.left,
                                 self.top,
                                 self.right,
                                 self.bottom,
-                                fill="black")
+                                fill="sandybrown")
         canvas.create_text((self.left + self.right) // 2,
                            (self.top + self.bottom) // 2,
                            text=self.text,
                            fill="white")
+                           
     def clicked(self, data, event):
         if self.left <= event.x <= self.right and \
            self.top <= event.y <= self.bottom:
@@ -98,23 +103,7 @@ def makeTopics():
     return result
     
 def topicList():
-    result = ["Functions",
-              "Data/Expressions",
-              "Conditionals",
-              "Loops",
-              "Strings",
-              "1D Lists/Tuples",
-              "Graphics",
-              "2D Lists",
-              "Animation Part 1",
-              "Animation Part 2",
-              "Sets",
-              "Dictionaries",
-              "Efficiency",
-              "OOP",
-              "Recursion: Beginner",
-              "Recursion"]
-    return result
+    return getSections()
     
 ####################################
 # customize these functions
