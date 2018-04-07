@@ -4,7 +4,7 @@ from tkinter import *
 from rapidFireQuiz import *
 from quizReader import *
 
-class Button(object):
+'''class Button(object):
     
     def __init__(self, left, right, top, bottom, text, connection):
         self.left = left
@@ -29,24 +29,26 @@ class Button(object):
         if self.left <= event.x <= self.right and \
            self.top <= event.y <= self.bottom:
             data.mode = self.connection
-            return True
+            return True'''
 
 class Screen(object):
-    def __init__(self, name):
+    def __init__(self, canvas, name):
         self.name = name
-        self.buttons = self.makeButtons()
+        self.buttons = self.makeButtons(canvas)
 
-    def makeButtons(self):
+    def makeButtons(self,canvas):
         result = []
         height = 100
         for year in range(18, 15, -1):
             for semester in ("F", "S"):
                 name = "%s%d" % (semester, year)
                 connection = self.name + name
-                result += [Button(50, 550, height, height + 25, name,
-                                  connection)]
+
+                Topic = Button(canvas, text = name, width = data.width/5, command = changeMode(data, connection))
+                canvas.create_window(20,height, window = Topic)
+                result += Topic
                 height += 50
-        result += [Button(25, 75, 525, 575, "To Start", "Title")]
+        #result += [Button(25, 75, 525, 575, "To Start", "Title")]
         return result
         
     def screenMousePressed(self, event, data):
@@ -64,12 +66,14 @@ class Screen(object):
             button.draw(canvas, data)
             
 class TitleScreen(Screen):        
-    def makeButtons(self):
+    def makeButtons(self,canvas):
         result = []
         height = 100
         topics = topicList()
         for topic in topics:
-            result += [Button(50, 550, height, height + 25, topic, topic)]
+            Topic = Button(canvas, text = name, width = data.width/5, command = changeMode(data, connection))
+            canvas.create_window(20,height, window = Topic)
+            
             height += 30
         return result
     def draw(self, canvas, data):
@@ -82,29 +86,32 @@ class TitleScreen(Screen):
             button.draw(canvas, data)
         
 class TopicScreen(Screen):
-    def makeButtons(self):
+    def makeButtons(self,canvas):
         result = []
         height = 100
         for year in range(18, 15, -1):
             for semester in ("F", "S"):
                 name = "%s%d" % (semester, year)
                 connection = self.name + name
-                result += [Button(50, 550, height, height + 25, name,
-                                  connection)]
+                Topic = Button(canvas, text = name, width = data.width/5, command = changeMode(data, connection))
+                canvas.create_window(20,height, window = Topic)
+                result += Topic
                 height += 35
-        result += [Button(25, 75, 525, 575, "To Start", "Title")]
+        #result += [Button(25, 75, 525, 575, "To Start", "Title")]
         return result
 
 def makeTopics():
     result = []
     topics = topicList()
     for topic in topics:
-        result += [TopicScreen(topic)]
+        result += [TopicScreen(topic, canvas)]
     return result
     
 def topicList():
     return getSections()
     
+def changeMode(data, mode):
+    data.mode = mode
 ####################################
 # customize these functions
 ####################################
@@ -188,4 +195,4 @@ def run(width=300, height=300):
     root.mainloop()  # blocks until window is closed
     print("bye!")
 
-run(600, 600)
+run(400, 400)
