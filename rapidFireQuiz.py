@@ -3,6 +3,12 @@ import ast
 
 operations = ["%", "//", "+", "-", "*"]
 
+    
+#evaluates an expression
+def getSolution(expression):
+    return multiline_eval(expression)
+    
+#returns random operations with length
 def operationExpressionBuilder(length):
     if(length%2==0): length +=1
     i = 0
@@ -13,9 +19,7 @@ def operationExpressionBuilder(length):
         i+=1
     return expression
 
-def getSolution(expression):
-    return multiline_eval(expression)
-    
+#returns a list code tracing problem
 def lstExpressionBuilder():
     expression = ""
     lst = list(range(random.randint(3, 11)))
@@ -24,6 +28,7 @@ def lstExpressionBuilder():
     upTo = random.randint(index, len(lst))
     steps = random.randint(2, len(lst)//2)
     expression+= "lst[" + str(index) + ":" + str(upTo) + ":" + str(steps) + "]\n"
+    #check if expression is valid
     try: 
         multiline_eval(expression)
         return expression
