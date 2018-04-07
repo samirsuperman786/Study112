@@ -4,8 +4,8 @@ from tkinter import *
 from rapidFireQuiz import *
 from quizReader import *
 
-'''class Button(object):
-    
+
+class Button(object):
     def __init__(self, left, right, top, bottom, text, connection):
         self.left = left
         self.right = right
@@ -13,42 +13,38 @@ from quizReader import *
         self.bottom = bottom
         self.text = text
         self.connection = connection
-        
     def draw(self, canvas, data):
         canvas.create_rectangle(self.left,
                                 self.top,
                                 self.right,
                                 self.bottom,
-                                fill="sandybrown")
+                                fill="black")
         canvas.create_text((self.left + self.right) // 2,
                            (self.top + self.bottom) // 2,
                            text=self.text,
                            fill="white")
-                           
     def clicked(self, data, event):
         if self.left <= event.x <= self.right and \
            self.top <= event.y <= self.bottom:
             data.mode = self.connection
-            return True'''
+            return True
 
 class Screen(object):
-    def __init__(self, canvas, name):
+    def __init__(self, name):
         self.name = name
-        self.buttons = self.makeButtons(canvas)
+        self.buttons = self.makeButtons()
 
-    def makeButtons(self,canvas):
+    def makeButtons(self):
         result = []
         height = 100
         for year in range(18, 15, -1):
             for semester in ("F", "S"):
                 name = "%s%d" % (semester, year)
                 connection = self.name + name
-
-                Topic = Button(canvas, text = name, width = data.width/5, command = changeMode(data, connection))
-                canvas.create_window(20,height, window = Topic)
-                result += Topic
+                result += [Button(50, 550, height, height + 25, name,
+                                  connection)]
                 height += 50
-        #result += [Button(25, 75, 525, 575, "To Start", "Title")]
+        result += [Button(25, 75, 525, 575, "To Start", "Title")]
         return result
         
     def screenMousePressed(self, event, data):
@@ -66,14 +62,12 @@ class Screen(object):
             button.draw(canvas, data)
             
 class TitleScreen(Screen):        
-    def makeButtons(self,canvas):
+    def makeButtons(self):
         result = []
         height = 100
         topics = topicList()
         for topic in topics:
-            Topic = Button(canvas, text = name, width = data.width/5, command = changeMode(data, connection))
-            canvas.create_window(20,height, window = Topic)
-            
+            result += [Button(50, 550, height, height + 25, topic, topic)]
             height += 30
         return result
     def draw(self, canvas, data):
@@ -86,32 +80,29 @@ class TitleScreen(Screen):
             button.draw(canvas, data)
         
 class TopicScreen(Screen):
-    def makeButtons(self,canvas):
+    def makeButtons(self):
         result = []
         height = 100
         for year in range(18, 15, -1):
             for semester in ("F", "S"):
                 name = "%s%d" % (semester, year)
                 connection = self.name + name
-                Topic = Button(canvas, text = name, width = data.width/5, command = changeMode(data, connection))
-                canvas.create_window(20,height, window = Topic)
-                result += Topic
+                result += [Button(50, 550, height, height + 25, name,
+                                  connection)]
                 height += 35
-        #result += [Button(25, 75, 525, 575, "To Start", "Title")]
+        result += [Button(25, 75, 525, 575, "To Start", "Title")]
         return result
 
 def makeTopics():
     result = []
     topics = topicList()
     for topic in topics:
-        result += [TopicScreen(topic, canvas)]
+        result += [TopicScreen(topic)]
     return result
     
 def topicList():
     return getSections()
     
-def changeMode(data, mode):
-    data.mode = mode
 ####################################
 # customize these functions
 ####################################
@@ -195,4 +186,4 @@ def run(width=300, height=300):
     root.mainloop()  # blocks until window is closed
     print("bye!")
 
-run(400, 400)
+run(600, 600)
