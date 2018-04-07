@@ -17,16 +17,18 @@ class QuizMenu(object):
         self.solution = None
         self.playerEntries = []
         self.guesses = []
+        self.dragon = PhotoImage(file="images/112-dragon.gif")
         height = data.height
         width = data.width
+        canvas.create_rectangle(5, height//2, 225, height//2 + 35, fill = "dodgerblue4")
         b = Button(canvas, text = "Next Question", command = self.newQuizQuestion)
-        canvas.create_window(0, height//2, anchor=NW, window=b)
+        canvas.create_window(15, height//2 + 5, anchor=NW, window=b)
         
         canvas.create_text(width//2, height//2 + 30, text = "Your Solution",
          font = "Helvetica 28 bold")
         
         b = Button(canvas, text = "Check Solution", command = self.isGuessesRight)
-        canvas.create_window(100, height//2, anchor=NW, window=b)
+        canvas.create_window(115, height//2 + 5, anchor=NW, window=b)
         
         
     def isGuessesRight(self):
@@ -55,11 +57,19 @@ class QuizMenu(object):
     def draw(self, data, canvas):
         height = data.height
         width = data.width
-        canvas.create_rectangle(0, 0, width, height//2, width =10, fill = "white",
-         outline = "red")
+        margin = 10
+        canvas.create_rectangle(margin, margin,
+                                width, height//2,
+                                width =10, fill = "white",
+                                outline = "dodgerblue4")
         canvas.create_text(width//2, 20, text = self.currentQuestion, anchor = N)
+        canvas.create_text(margin, height - margin,
+                           text = "Study 112", anchor = SW,
+                           fill="cornflowerblue", font="Helvetica 30 italic")
+        canvas.create_image(width + margin//2, height//2 + margin//2,
+                            anchor=NE, image = self.dragon)
         
-def test(winWidth = 1200, winHeight = 600):
+def test(winWidth = 850, winHeight = 600):
     root = Tk()
     canvas = Canvas(root, width=winWidth, height=winHeight)
     canvas.pack()
@@ -72,3 +82,4 @@ def test(winWidth = 1200, winHeight = 600):
     data.menu.draw(data, canvas)
     root.mainloop()
 
+test()
