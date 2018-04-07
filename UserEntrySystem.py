@@ -23,7 +23,7 @@ def run(width=300,height=300):
     textBox = Entry(canvas,textvariable=textEntry)
     canvas.create_window(width//2, height//2, 
         window=textBox, height=height//3, width=width//2)
-    checkSol = Button(canvas,text="Check Solution", command=runCode)
+    checkSol = Button(canvas,text="Check Solution", bg = "red", command=runCode)
     checkSol.configure(width = 10, activebackground = "#33B5E5", relief = FLAT)
     canvas.create_window(10, 10, anchor=NW, window=checkSol)
     textBox.bind('<Return>', newLine)
