@@ -3,8 +3,8 @@ import random
 import sys
 import subprocess
 
-quizPath = r"C:\Users\Sam\Google Drive\College\Freshman\Spring\hack112\Quizzes"
-    
+quizPath = os.path.dirname(os.path.realpath(__file__)) + os.sep + "Quizzes"
+
 def checkSolution(guess, solution):
     for i in range(len(guess)):
         if(guess[i] != solution[i]):
