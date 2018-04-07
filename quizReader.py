@@ -7,30 +7,29 @@ quizPath = r"C:\Users\Sam\Google Drive\College\Freshman\Spring\hack112\Quizzes"
 
 
 def test():
-    formatQuiz(getOutputOfQuiz(getRandomQuiz(quizPath + os.sep + getSections()[0])))
+    print(getQuizSolution(getRandomQuiz(quizPath + os.sep + getSections()[2])))
     
     
-#guesses should be lists
+#guess for each line should in lists
 def checkSolution(guess, solution):
-    formattedQuiz = format(solution) 
-    return guess == formattedQuiz
-
-def formatQuiz(solution):
-    formatted = []
-    solution = solution.replace("\\r", "")
-    for line in solution.split("\\n"):
-        formatted.append(line)
-    print(formatted)
+    for i in range(len(guess)):
+        if(guess[i] != solution[i]):
+            return False
+    return True
 
 #needs a path to the direct file
-def getOutputOfQuiz(quiz):
-    s = subprocess.check_output([sys.executable, quiz])
-    return str(s)
+def getQuizSolution(quiz):
+    s = subprocess.check_output([sys.executable, quiz]).decode("utf-8")
+    output = []
+    for line in s.splitlines():
+        output.append(line)
+    return output
     
 #returns the entire path of a random quiz
 def getRandomQuiz(sectionPath):
     quizList = os.listdir(sectionPath)
     selection = random.randint(0, len(quizList)-1)
+    print(sectionPath + os.sep + quizList[selection])
     return sectionPath + os.sep + quizList[selection]
 
 def getSections():
