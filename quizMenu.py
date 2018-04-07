@@ -20,7 +20,10 @@ class QuizMenu(object):
         self.dragon = PhotoImage(file="images/112-dragon.gif")
         height = data.height
         width = data.width
-        canvas.create_rectangle(5, height//2, 225, height//2 + 35, fill = "dodgerblue4")
+        canvas.create_rectangle(5, height//2, width + 5, height + 1,
+                                fill="lightblue2", width=0)
+        canvas.create_rectangle(5, height//2, 227, height//2 + 37,
+                                fill = "dodgerblue4", width = 0)
         b = Button(canvas, text = "Next Question", command = self.newQuizQuestion)
         canvas.create_window(15, height//2 + 5, anchor=NW, window=b)
         
@@ -62,12 +65,15 @@ class QuizMenu(object):
                                 width, height//2,
                                 width =10, fill = "white",
                                 outline = "dodgerblue4")
-        canvas.create_text(width//2, 20, text = self.currentQuestion, anchor = N)
+        canvas.create_text(width//2, 56, text = self.currentQuestion, anchor = N)
         canvas.create_text(margin, height - margin,
                            text = "Study 112", anchor = SW,
                            fill="cornflowerblue", font="Helvetica 30 italic")
         canvas.create_image(width + margin//2, height//2 + margin//2,
                             anchor=NE, image = self.dragon)
+        canvas.create_text(width//2, margin,
+                           text=self.sectionName, anchor=N,
+                           font="Helvetica 36")
         
 def test(winWidth = 850, winHeight = 600):
     root = Tk()
