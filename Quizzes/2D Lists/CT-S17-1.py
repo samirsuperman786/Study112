@@ -1,3 +1,4 @@
+import copy
 def	ct1(L):
     a	=	L
     b	=	copy.copy(L)

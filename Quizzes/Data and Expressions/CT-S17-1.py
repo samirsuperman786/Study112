@@ -1,3 +1,4 @@
+import math
 def	ct1(x,	y,	z):
     print(x	+	y	**	2	- z	*	2)
     print(100*int(y/x)	+	y/x)
