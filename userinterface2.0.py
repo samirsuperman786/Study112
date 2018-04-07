@@ -29,14 +29,15 @@ class TopicScreen(Screen):
         canvas.create_text(data.width/2, 0 , text = self.name, anchor = "n", font = "Times 30 bold")
         
         height = 100
-        rapid = Button(canvas, text = "Rapid Fire", width = data.width//10, command = changeMode(data, "rapidFire"))
+        rapid = Button(canvas, text = "Rapid Fire", width = data.width//10, command = lambda: changeMode(data, "rapidFire"))
         canvas.create_window(data.width/2,height, window = rapid)
         height += 50
         
-        random = Button(canvas,text = "Random Question", width = data.width//10, command = changeMode(data, "random"))
+        random = Button(canvas,text = "Random Question", width = data.width//10, command = lambda: changeMode(data, "random"))
         canvas.create_window(data.width/2,height, window = random)
     
 def changeMode(data, mode):
+    print(data.mode)
     data.mode = mode
 
 
@@ -108,4 +109,4 @@ def run(width=300, height=300):
     root.mainloop()  # blocks until window is closed
     print("bye!")
 
-run(400, 400)
+run(1200, 600)

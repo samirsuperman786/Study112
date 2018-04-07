@@ -10,6 +10,7 @@ def getSections():
     sectionNames = []
     for file in os.listdir(quizPath):
         sectionNames.append(file)
+    print(sectionNames)
     return sectionNames
     
 #returns the entire path of a random quiz in a section
