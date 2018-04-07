@@ -31,8 +31,12 @@ def getQuizSolution(quizPath):
         output.append(line)
     return output
 
-def checkSolution(guess, solution):
-    for i in range(len(guess)):
-        if(guess[i] != solution[i]):
-            return False
-    return True
+#checks entire solution or part of it
+def checkSolution(guess, solution, index = None):
+    if(index!=None):
+        return guess[index] == solution[index]
+    else:
+        for i in range(len(guess)):
+            if(guess[i] != solution[i]):
+                return False
+        return True
